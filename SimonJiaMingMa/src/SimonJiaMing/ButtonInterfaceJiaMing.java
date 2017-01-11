@@ -16,4 +16,8 @@ public interface ButtonInterfaceJiaMing extends Clickable{
 	void dim();
 
 	Color getColor();
+
+	void setX(int i);
+
+	void setY(int i);
 }
