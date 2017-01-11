@@ -12,10 +12,6 @@ import gui.components.Visible;
 
 public class SimonScreenJiaMing extends ClickableScreen implements Runnable {
 
-//	ProgressInterfaceX
-//	ArrayList<MoveInterfaceX>
-//	an int to keep track of the roundNumber
-//	a boolean to keep track of whether of not input from the user is being accepted
 	
 	private ProgressInterfaceJiaMing progress;
 	private ButtonInterfaceJiaMing[] buttons;
@@ -50,8 +46,9 @@ public class SimonScreenJiaMing extends ClickableScreen implements Runnable {
 		progress = getAProgress();
 		buttons = new ButtonInterfaceJiaMing[6];
 		Color limeGreen = new Color(125, 255, 100);
-		label = new TextMultiLines(20, 20, 100, 125, limeGreen);
-		status = new TextLabel(300, 20, 100, 125, "Let's play Simon!");
+		label = new TextMultiLines(50, 50, 200, 100, limeGreen, Color.BLACK);
+		status = new TextLabel(550, 25, 200, 125, "Let's play Simon!");
+		status.setSize(20);
 		moves = new ArrayList<MoveInterfaceJiaMing>();
 		addButtons();
 		previousButton = -1;
@@ -64,14 +61,15 @@ public class SimonScreenJiaMing extends ClickableScreen implements Runnable {
 
 	private void addButtons() {
 		Color[] colors = {Color.BLUE, Color.PINK, Color.RED, Color.GREEN, Color.YELLOW, Color.ORANGE};
-		int[] coordX = {400, 400, 200, 200, 600, 600};
-		int[] coordY = {200, 600, 300, 400, 300, 400};
+		int[] coordX = {600, 600, 400, 400, 800, 800};
+		int[] coordY = {300, 600, 400, 500, 400, 500};
 		for(int i = 0; i < buttons.length; i ++) {
-			final ButtonInterfaceJiaMing b = getAButton();
-			b.setColor(colors[i]);
-			b.setX(coordX[i]);
-			b.setY(coordY[i]);
-			b.setAction(new Action() {
+			buttons[i] = getAButton();
+			buttons[i].setColor(colors[i]);
+			buttons[i].setX(coordX[i]);
+			buttons[i].setY(coordY[i]);
+			final ButtonInterfaceJiaMing b = buttons[i];
+			buttons[i].setAction(new Action() {
 				
 				@Override
 				public void act() {
@@ -80,6 +78,7 @@ public class SimonScreenJiaMing extends ClickableScreen implements Runnable {
 							
 							@Override
 							public void run() {
+								acceptingInput = false;
 								b.highlight();
 								try {
 									Thread.sleep(800);
@@ -87,36 +86,41 @@ public class SimonScreenJiaMing extends ClickableScreen implements Runnable {
 									e.printStackTrace();
 								}
 								b.dim();
+								if(b == (moves.get(currentSeq).getButton())) {
+									currentSeq ++;
+									acceptingInput = true;
+									if(moves.size() == currentSeq) {
+										Thread nextRound = new Thread(SimonScreenJiaMing.this);
+										nextRound.start(); 
+									}
+								}else {
+									gameOver();
+								}
 							}
 						});
 						blink.start();
-						if(b.equals(moves.get(currentSeq).getButton())) {
-							currentSeq ++;
-							if(moves.size() == currentSeq) {
-								Thread nextRound = new Thread(SimonScreenJiaMing.this);
-								nextRound.start(); 
-							}
-						} else {
-							gameOver();
-						}
 					}
 				}
 			});
 			viewObjects.add(b);
-			buttons[i] = b;
 		}
 	}
 
 	private void gameOver() {
-		// TODO Auto-generated method stub
+		label.addString("WRONG YOU LOSE!");
+		label.setBGColor(Color.RED);
 	}
 	
 	private void nextRound() {
 		acceptingInput = false;
+		currentSeq = 0;
 		moves.add(randomButton());
-		changeText("Simon's turn");
+		progress.increaseRoundNum(1);
+		progress.setSequenceLength(moves.size());
+		updateLabel();
+		changeText("Simon's turn!");
 		playSequence();
-		changeText("Your turn");
+		changeText("Your turn!");
 		acceptingInput = true;
 		
 	}
@@ -129,6 +133,7 @@ public class SimonScreenJiaMing extends ClickableScreen implements Runnable {
 			b.highlight();
 			try {
 				Thread.sleep((long) (2500 / Math.sqrt(progress.getRoundNum())));
+//				Thread.sleep(500);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -163,9 +168,6 @@ public class SimonScreenJiaMing extends ClickableScreen implements Runnable {
 	}
 	
 	public void run() {
-		progress.increaseRoundNum(1);
-		progress.setSequenceLength(moves.size());
-		updateLabel();
 		nextRound();
 		
 	}

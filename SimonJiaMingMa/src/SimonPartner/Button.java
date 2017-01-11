@@ -1,12 +1,14 @@
-package PartnerCode;
+package SimonPartner;
 
 import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 import SimonJiaMing.ButtonInterfaceJiaMing;
 import gui.components.Action;
+import gui.components.Component;
 
-public class Button implements ButtonInterfaceJiaMing {
+public class Button extends Component implements ButtonInterfaceJiaMing {
 
 	public Button() {
 		// TODO Auto-generated constructor stub
@@ -43,18 +45,6 @@ public class Button implements ButtonInterfaceJiaMing {
 	}
 
 	@Override
-	public int getX() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int getY() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
 	public boolean isAnimate() {
 		// TODO Auto-generated method stub
 		return false;
@@ -68,18 +58,6 @@ public class Button implements ButtonInterfaceJiaMing {
 
 	@Override
 	public void setColor(Color color) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void setX(int i) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void setY(int i) {
 		// TODO Auto-generated method stub
 
 	}
@@ -100,6 +78,18 @@ public class Button implements ButtonInterfaceJiaMing {
 	public void dim() {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public Color getColor() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void update(Graphics2D arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -1,4 +1,4 @@
-package PartnerCode;
+package SimonPartner;
 
 import SimonJiaMing.ProgressInterfaceJiaMing;
 
