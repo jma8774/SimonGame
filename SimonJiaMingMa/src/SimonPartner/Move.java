@@ -5,14 +5,15 @@ import SimonJiaMing.MoveInterfaceJiaMing;
 
 public class Move implements MoveInterfaceJiaMing {
 
-	public Move() {
-		// TODO Auto-generated constructor stub
+	ButtonInterfaceJiaMing b;
+	
+	public Move(ButtonInterfaceJiaMing b) {
+		this.b = b;
 	}
 
 	@Override
 	public ButtonInterfaceJiaMing getButton() {
-		// TODO Auto-generated method stub
-		return null;
+		return b;
 	}
 
 }

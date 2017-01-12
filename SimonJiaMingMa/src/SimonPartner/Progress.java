@@ -4,38 +4,36 @@ import SimonJiaMing.ProgressInterfaceJiaMing;
 
 public class Progress implements ProgressInterfaceJiaMing {
 
+	private int round;
+	private int seq;
+	
 	public Progress() {
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void increaseRoundNum(int i) {
-		// TODO Auto-generated method stub
-
+		round += i;
 	}
 
 	@Override
 	public int getRoundNum() {
-		// TODO Auto-generated method stub
-		return 0;
+		return round;
 	}
 
 	@Override
 	public void setRoundNum(int i) {
-		// TODO Auto-generated method stub
-
+		round = i;
 	}
 
 	@Override
 	public int getSequenceLength() {
-		// TODO Auto-generated method stub
-		return 0;
+		return seq;
 	}
 
 	@Override
 	public void setSequenceLength(int size) {
-		// TODO Auto-generated method stub
-
+		seq = size;
 	}
 
 }

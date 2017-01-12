@@ -2,6 +2,7 @@ package SimonPartner;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 
 import SimonJiaMing.ButtonInterfaceJiaMing;
@@ -10,86 +11,80 @@ import gui.components.Component;
 
 public class Button extends Component implements ButtonInterfaceJiaMing {
 
+	private Color tempC;
+	private Color c;
+	private static int width = 50;
+	private static int height = 50; 
+	Action action;
+	
 	public Button() {
-		// TODO Auto-generated constructor stub
+		super(0, 0, width, height);
+		tempC = Color.lightGray;
+		update();
 	}
 
 	@Override
 	public void act() {
-		// TODO Auto-generated method stub
-
+		action.act();
 	}
 
 	@Override
-	public boolean isHovered(int arg0, int arg1) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean isHovered(int x, int y) {
+		return x>getX() && x<getX()+getWidth() && y > getY() && y<getY()+getHeight();
+	}
+	
+	@Override
+	public int getWidth() {
+		return width;
 	}
 
 	@Override
 	public int getHeight() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public BufferedImage getImage() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int getWidth() {
-		// TODO Auto-generated method stub
-		return 0;
+		return height;
 	}
 
 	@Override
 	public boolean isAnimate() {
-		// TODO Auto-generated method stub
 		return false;
 	}
-
-	@Override
-	public void update() {
-		// TODO Auto-generated method stub
-
-	}
-
+	
 	@Override
 	public void setColor(Color color) {
-		// TODO Auto-generated method stub
-
+		c = color;
+		update();
 	}
-
+	
+	public Color getColor() {
+		return tempC;
+	}
+	
 	@Override
 	public void setAction(Action a) {
-		// TODO Auto-generated method stub
-
+		action = a;
 	}
 
 	@Override
 	public void highlight() {
-		// TODO Auto-generated method stub
-
+		tempC = c;
+		update();
 	}
 
 	@Override
 	public void dim() {
-		// TODO Auto-generated method stub
-
+		tempC = Color.lightGray;
+		update();
 	}
 
 	@Override
-	public Color getColor() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public void update(Graphics2D g) {
+		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		if(tempC != null) {
+			g.setColor(tempC);
+			g.fillOval(0, 0, width, height);
+			g.setColor(Color.BLACK);
+			g.drawOval(0, 0, width-1, height-1);
 
-	@Override
-	public void update(Graphics2D arg0) {
-		// TODO Auto-generated method stub
-		
+		}
 	}
 
 }
