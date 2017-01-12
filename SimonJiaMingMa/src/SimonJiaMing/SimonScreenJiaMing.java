@@ -3,6 +3,9 @@ package SimonJiaMing;
 import java.awt.Color;
 import java.util.ArrayList;
 
+import SimonPartner.Button;
+import SimonPartner.Move;
+import SimonPartner.Progress;
 import gui.Screens.ClickableScreen;
 import gui.components.Action;
 import gui.components.TextArea;
@@ -30,15 +33,15 @@ public class SimonScreenJiaMing extends ClickableScreen implements Runnable {
 	}
 
 	public ButtonInterfaceJiaMing getAButton() {
-		return null;
+		return new Button();
 	}
 	
 	public MoveInterfaceJiaMing getAMove(ButtonInterfaceJiaMing b) {
-		return null;
+		return new Move(b);
 	}
 	
 	public ProgressInterfaceJiaMing getAProgress() {
-		return null;
+		return new Progress();
 	}
 	
 	@Override
@@ -132,8 +135,8 @@ public class SimonScreenJiaMing extends ClickableScreen implements Runnable {
 			b = moves.get(i).getButton();
 			b.highlight();
 			try {
-				Thread.sleep((long) (2500 / Math.sqrt(progress.getRoundNum())));
-//				Thread.sleep(500);
+//				Thread.sleep((long) (2500 / Math.sqrt(progress.getRoundNum())));
+				Thread.sleep(500);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
