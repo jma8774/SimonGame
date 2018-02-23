@@ -30,6 +30,7 @@ public class Button extends Component implements ButtonInterfaceJiaMing {
 
 	@Override
 	public boolean isHovered(int x, int y) {
+		int xx;
 		return x>getX() && x<getX()+getWidth() && y > getY() && y<getY()+getHeight();
 	}
 	
